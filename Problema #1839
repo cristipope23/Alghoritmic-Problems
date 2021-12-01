@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+ifstream fin("memory006.in");ofstream fout("memory006.out");
+unsigned long long n,v[500005],k;
+int main()
+{
+    fin>>n>>k;
+    for(int i=1;i<=n;i++)
+        fin>>v[i];
+    int p=1;
+    for(int i=2;i<=4;i++)
+        p*=v[i];
+    cout<<(1<<k)<<"\n";
+    if(p ^ (1<<k))
+        cout<<"NU";
+    else
+        cout<<"DA";
+    return 0;
+}
