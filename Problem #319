@@ -1,0 +1,50 @@
+#include <iostream>
+#include<fstream>
+using namespace std;
+
+ifstream fin("suma35.in");
+ofstream fout("suma35.out");
+
+int n,v[1005],trei5[]={3,5},s=0;
+
+void afisare(int k)
+{
+    for(int i=1;i<=k;i++)
+        fout<<v[i]<<" ";
+    fout<<'\n';
+}
+
+bool valid(int k)
+{
+    if(v[k]<v[k-1] && k>=2)
+        return false;
+    s=0;
+    for(int i=1;i<=k;i++)
+        s+=v[i];
+    if(s<=n)
+        return true;
+    return false;
+}
+
+void back(int k)
+{
+    if(s==n)
+    {
+        afisare(k-1);
+        return;
+    }
+    for(int i=0;i<=1;i++)
+    {
+        v[k]=trei5[i];
+        if(valid(k))
+            back(k+1);
+    }
+}
+
+
+int main()
+{
+    fin>>n;
+    back(1);
+    return 0;
+}
