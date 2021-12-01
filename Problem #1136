@@ -1,0 +1,98 @@
+#include <bits/stdc++.h>
+#define maxn 900
+#define maxm 6020
+#define INF 0x3f3f3f3f
+using namespace std;
+
+ifstream fin("dragoni.in");
+ofstream fout("dragoni.out");
+
+int cerinta;
+int n,m;
+int dmax[maxn];
+vector <pair<int,int> > lista[maxm];
+bool viz[maxn];
+int rez;
+
+
+int D[maxn][maxn];
+bool incoada[maxn];
+
+
+void read()
+{
+    fin>>cerinta;
+    fin>>n>>m;
+    for(int i=1;i<=n;i++)
+        fin>>dmax[i];
+    int x,y,c;
+    for(int i=1;i<=m;i++)
+    {
+        fin>>x>>y>>c;
+        lista[x].push_back({y,c});
+        lista[y].push_back({x,c});
+    }
+}
+
+void dfs(int nod)
+{
+    viz[nod]=1;
+    for(auto x:lista[nod])
+    {
+        if(!viz[x.first] && x.second<=dmax[1])
+        {
+            if(dmax[x.first]>rez)
+                rez=dmax[x.first];
+            dfs(x.first);
+        }
+    }
+}
+
+
+int Dijkstra()
+{
+    queue<pair<int,int> > q;
+    memset(D,INF,sizeof(D));
+    D[1][1]=0;
+    q.push({1,1});
+    while(!q.empty())
+    {
+        int nod=q.front().first;
+        int c=q.front().second;
+        q.pop();
+        for(auto x:lista[nod])
+        {
+            int vecin=x.first;
+            int cost=x.second;
+            int save;
+            if(dmax[c]>=cost)
+            {
+                if(dmax[nod]<dmax[vecin])
+                    save=vecin;
+                else
+                    save=nod;
+                if(D[nod][c]+cost<D[vecin][save])
+                {
+                    D[vecin][save]=D[nod][c]+cost;
+                    q.push({vecin,save});
+                }
+            }
+        }
+    }
+    int minim=INF;
+    for(int i=1;i<=n;i++)
+        minim=min(minim,D[n][i]);
+    return minim;
+}
+
+int main()
+{
+    read();
+    if(cerinta==1){
+        dfs(1);
+        fout<<rez;
+    }
+    else
+        fout<<Dijkstra();
+    return 0;
+}
