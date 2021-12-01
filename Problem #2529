@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+ifstream fin("subsircomunmaximal.in");
+ofstream fout("subsircomunmaximal.out");
+
+char s1[1050],s2[1050],sir[1050*1050];
+int n,m,d[1050][1050],k;
+void citire()
+{
+    fin.getline(s1,1050);
+    n=strlen(s1);
+    fin.getline(s2,1050);
+    m=strlen(s2);
+}
+
+void dinamica()
+{
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(s1[i-1]==s2[j-1])
+            {
+                d[i][j]=d[i-1][j-1]+1;
+
+            }
+            else
+                d[i][j]=max(d[i-1][j],d[i][j-1]);
+        }
+    }
+    int i,j;
+    for(i=n,j=m; i; )
+    {
+        if(s1[i-1]==s2[j-1])
+            sir[++k]=s1[i-1],--i,--j;
+        else if(d[i-1][j]<d[i][j-1])
+            --j;
+        else
+            --i;
+    }
+    for(int i=k;i>=1;i--)
+        fout<<sir[i];
+}
+
+int main()
+{
+    citire();
+    dinamica();
+    return 0;
+}
