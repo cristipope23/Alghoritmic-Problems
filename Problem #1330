@@ -1,0 +1,50 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+ifstream fin("partitiimultime.in");
+ofstream fout("partitiimultime.out");
+
+int n,v[11],max1;
+
+void back(int k,int N,int max1,int st[])
+{
+    if(k>N)
+    {
+        for(int i=1;i<=N;i++)
+        {
+            bool primul=true;
+            for(int j=1;j<=N;j++)
+            {
+                if(st[j]==i)
+                {
+                    if(primul)
+                    {
+                        fout<<j;primul=false;
+                    }
+                    else fout<<j;
+                }
+            }
+            if(!primul)
+                fout<<"*";
+        }
+        fout<<"\n";
+        return;
+    }
+    for(int i=1;i<=max1+1;i++)
+    {
+        st[k]=i;
+
+        int n_max=max1;
+        if(st[k]>max1)
+            n_max=st[k];
+        back(k+1,N,n_max,st);
+    }
+}
+
+int main()
+{
+    fin>>n;
+    back(1,n,max1,v);
+    return 0;
+}
