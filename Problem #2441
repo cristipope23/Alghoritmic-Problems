@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+int cuvinte_total;
+char cuvinte[115][115];
+int main()
+{
+    char text[115];
+    cin.get(text, 115);
+    char *p = strtok(text, " ");
+    while(p != NULL)
+    {
+        strcpy(cuvinte[cuvinte_total], p);
+        cuvinte_total++;
+        p = strtok(NULL, " ");
+    }
+    for(int i = 0; i < cuvinte_total; i++)
+    {
+        if(strlen(cuvinte[i]) % 2)
+        {
+            char cuvant_descentrat[115];
+            strcpy(cuvant_descentrat, cuvinte[i]);
+            int mijloc = strlen(cuvant_descentrat) / 2;
+            strcpy(cuvant_descentrat + mijloc + 1, cuvant_descentrat + mijloc);
+            for(int j = i + 1; j < cuvinte_total; j++)
+            {
+                if(strcmp(cuvinte[j], cuvant_descentrat) == 0)
+                {
+                    cout << "DA";
+                    return 0;
+                }
+            }
+        }
+    }
+    for(int i = cuvinte_total-1; i>0; i--)
+    {
+        if(strlen(cuvinte[i]) % 2==0)
+        {
+            cout<<cuvinte[i];
+            char cuvant_descentrat[115];
+            strcpy(cuvant_descentrat, cuvinte[i]);
+            int mijloc = strlen(cuvant_descentrat) / 2;
+            strcpy(cuvant_descentrat + mijloc + 1, cuvant_descentrat + mijloc);
+            for(int j = i-1; j>0; j--)
+            {
+                if(strcmp(cuvinte[j], cuvant_descentrat) == 0)
+                {
+                    cout << "DA";
+                    return 0;
+                }
+            }
+        }
+    }
+    cout << "NU";
+    return 0;
+}
