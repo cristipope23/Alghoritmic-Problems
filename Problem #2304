@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+#define maxn 300
+using namespace std;
+
+
+
+
+int main()
+{
+    char c[maxn],save[maxn][maxn];
+    int n,k,l=0;
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        cin>>save[i];
+    }
+    cin>>k;
+    for(int i=1;i<=n;i++)
+        if(strlen(save[i])==k)
+            cout<<save[i]<<" ";
+    for(int i=1;i<=n;i++)
+        if(strlen(save[i])!=k)
+            cout<<save[i]<<" ";
+    return 0;
+}
