@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n,v[100215],k;
+long long rez=-9999999999999;
+long long s[100005];
+int main()
+{
+    cin>>n;
+    for(int i=1;i<=n;i++){
+        cin>>v[i];
+        s[i]=v[i];
+        s[i]+=s[i-1];
+    }
+    cin>>k;
+    int x,y;
+    for(int i=1;i<=k;i++)
+    {
+        cin>>x>>y;
+        if(y<x)
+            swap(x,y);
+        if(s[y]-s[x-1]>rez)
+            rez=s[y]-s[x-1];
+    }
+    cout<<rez;
+    return 0;
+}
