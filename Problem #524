@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define maxn 1005
+using namespace std;
+int n,v[maxn];
+struct maxLen
+{
+    int st,dr,lung;
+}X,save;
+int main()
+{
+    cin>>n;
+    for(int i=1;i<=n;i++)
+        cin>>v[i];
+    save.lung=-1;
+    for(int i=1;i<=n;i++)
+    {
+        X.st=i;
+        X.lung=0;
+        for(int j=i+1;j<=n;j++)
+        {
+            X.lung++;
+            if(v[j]==v[i])
+            {
+                X.dr=j;
+                if(X.lung>save.lung)
+                {
+                    save.lung=X.lung;
+                    save.dr=X.dr;
+                    save.st=X.st;
+                }
+            }
+        }
+    }
+    cout<<save.st<<" "<<save.dr;
+    return 0;
+}
