@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+#define maxn 110
+using namespace std;
+
+ifstream fin("BFS.in");
+ofstream fout("BFS.out");
+
+int n,m,X,mat[maxn][maxn];
+bool viz[maxn]={false};
+
+void citire()
+{
+    fin>>n>>m>>X;
+    int x,y;
+    for(int i=1;i<=m;i++)
+    {
+        fin>>x>>y;
+        mat[x][y]=1;
+        mat[y][x]=1;
+    }
+}
+
+
+void BFS(int x)
+{
+   int c[maxn],p,u,z;
+   p=u=1;
+   c[p]=x;
+   viz[x]=true;
+   while(p<=u)
+   {
+       z=c[p];
+       for(int i=1;i<=n;i++)
+       {
+            if(mat[z][i]==1 && viz[i]==false)
+            {
+               ++u;
+               c[u]=i;
+               viz[i]=true;
+            }
+       }
+       p++;
+   }
+   for(int i=1;i<=u;i++)
+    fout<<c[i]<<" ";
+}
+
+int main()
+{
+    citire();
+    BFS(X);
+    return 0;
+}
