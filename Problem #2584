@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+#include<stdio.h>
+#define maxn 260
+using namespace std;
+
+void invers(char *c)
+{
+    for(int i=strlen(c)-1;i>=0;i--)
+        cout<<c[i];
+    cout<<" ";
+}
+
+int main()
+{
+    char c[maxn];
+    cin.get(c,maxn);
+    char *cuv;
+    cuv=strtok(c," ");
+    while(cuv!=NULL)
+    {
+        cout<<cuv<<" ";
+        invers(cuv);
+        cuv=strtok(NULL," ");
+    }
+    return 0;
+}
