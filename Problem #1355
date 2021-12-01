@@ -1,0 +1,57 @@
+#include <iostream>
+#include<fstream>
+using namespace std;
+
+ifstream fin("sirab.in");
+ofstream fout("sirab.out");
+
+int n,p,v[12];
+bool gasit=false;
+void afisare()
+{
+    for(int i=1;i<=p;i++)
+        fout<<v[i]<<" ";
+    fout<<"\n";
+}
+
+bool valid(int k)
+{
+    for(int i=1;i<k;i++)
+        for(int j=i+1;j<=k;j++)
+            if(v[i]>v[j])
+                return false;
+    for(int i=1;i<k;i++)
+        if(v[i]==v[k])
+            return false;
+    for(int i=1;i<k;i++)
+        for(int j=i+1;j<=k;j++)
+            if((abs(v[i]-v[j]))%(v[i]+v[j])!=0 && (v[i]+v[j])%abs(v[i]-v[j]))
+                return false;
+    return true;
+}
+
+void back(int k)
+{
+    if(k==p+1)
+    {
+        gasit=true;
+        afisare();
+        return;
+    }
+    for(int i=v[k-1]+1;i<=n;i++)
+    {
+        v[k]=i;
+        if(valid(k))
+            back(k+1);
+    }
+}
+
+int main()
+{
+    fin>>n>>p;
+    v[0]=0;
+    back(1);
+    if(gasit==false)
+        fout<<0;
+    return 0;
+}
