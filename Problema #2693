@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+#define maxn 260
+using namespace std;
+
+int nr_voc(char *c)
+{
+    int nr=0;
+    for(int i=0;i<strlen(c);i++)
+        if(strchr("aeiouAEIOU",c[i]))
+            nr++;
+    return nr;
+}
+
+int main()
+{
+    int k=0;
+    char c[maxn],save[maxn][maxn];
+    cin.get(c,maxn);
+    char *cuv;
+    cuv=strtok(c," ");
+    while(cuv!=NULL)
+    {
+        //cout<<cuv<<" ";
+        strcpy(save[++k],cuv);
+        cuv=strtok(NULL," ");
+    }
+    for(int i=1;i<k;i++)
+        for(int j=i+1;j<=k;j++)
+            if(nr_voc(save[i])<nr_voc(save[j]))
+                swap(save[i],save[j]);
+            else
+                if(nr_voc(save[i])==nr_voc(save[j]))
+                    if(strlen(save[i])<strlen(save[j]))
+                        swap(save[i],save[j]);
+                    else
+                        if(strlen(save[i])==strlen(save[j]))
+                            if(strcmp(save[i],save[j])>0)
+                                swap(save[i],save[j]);
+    for(int i=1;i<=k;i++)
+        cout<<save[i]<<"\n";
+    return 0;
+}
