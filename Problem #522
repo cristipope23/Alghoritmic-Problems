@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+#define maxn 1015
+using namespace std;
+int n,k;
+int v[maxn];
+int Start,End;
+int main()
+{
+    cin>>n>>k;
+    for(int i=1;i<=n;i++)
+        cin>>v[i];
+    bool ok=false;
+    int ii,jj,nr=0;
+    for(int i=1;i<n-k && !ok;i++)
+    {
+        for(int j=i+1;j<=n-k+1 && !ok;j++)
+        {
+            ii=i;
+            jj=j;
+            nr=0;
+            while(v[ii]==v[jj] && nr<k)
+            {
+                ii++,jj++,nr++;
+            }
+            if(nr==k)
+            {
+                ok=true;
+                Start=i;
+                End=jj-k;
+            }
+        }
+    }
+    if(ok)cout<<Start<<" "<<End;
+    else cout<<"NU";
+    return 0;
+}
