@@ -1,0 +1,15 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    signed long long int n;
+    int b;
+    cin>>n>>b;
+    long long masca=1;
+    masca=masca<<b;
+    n=n|masca;
+    cout<<n;
+    return 0;
+}
