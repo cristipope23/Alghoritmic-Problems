@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+#define maxn 1100
+using namespace std;
+
+ifstream fin("mere.in");
+ofstream fout("mere.out");
+
+int n,rez;
+int v[maxn];
+bool viz[maxn];
+vector<int> lista[maxn];
+
+void citire()
+{
+    fin>>n;
+    for(int i=1;i<=n;i++)
+        fin>>v[i];
+    int x,y;
+    for(int i=1;i<n;i++)
+    {
+        fin>>x>>y;
+        lista[x].push_back(y);
+    }
+}
+
+int nod_max(int nod)
+{
+    int max_mere=-1,max_nod=nod;
+    for(auto x:lista[nod])
+    {
+        if(v[x]>max_mere)
+        {
+            max_mere=v[x];
+            max_nod=x;
+        }
+        else
+            if(v[x]==max_mere)
+            {
+                if(x<max_nod)
+                {
+                    max_mere=v[x];
+                    max_nod=x;
+                }
+            }
+    }
+    return max_nod;
+}
+
+void dfs(int nod)
+{
+    //cout<<nod<<" ";
+    viz[nod]=1;
+    rez+=v[nod];
+    if(!viz[nod_max(nod)])
+    {
+        dfs(nod_max(nod));
+    }
+}
+
+int main()
+{
+    citire();
+    dfs(1);
+    fout<<rez;
+    return 0;
+}
