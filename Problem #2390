@@ -1,0 +1,125 @@
+#include<bits/stdc++.h>
+#define maxn 105
+using namespace std;
+
+ifstream fin("rj.in");
+ofstream fout("rj.out");
+
+int n,m,mat1[maxn][maxn],mat2[maxn][maxn];
+char c[255];
+queue<pair<int,int>> q1;
+queue<pair<int,int>> q2;
+
+const int dx[] = { -1,-1,0,1,1,1,0,-1 };
+const int dy[] = { 0,1,1,1,0,-1,-1,-1 };
+
+struct poz
+{
+    int x,y;
+};
+poz R,J;
+
+void citire()
+{
+    fin>>n>>m;
+    fin.getline(c,255);
+    for(int i=1;i<=n;i++)
+    {
+        fin.getline(c,255);
+        for(int j=1;j<=m;j++)
+        {
+            if(c[j-1]=='X')
+            {
+                mat1[i][j]=mat2[i][j]=-1;
+            }
+            else if(c[j-1]==' ')
+                mat1[i][j]=mat2[i][j]=0;
+            else if(c[j-1]=='R')
+            {
+                mat1[i][j]=1;
+                R.x=i;
+                R.y=j;
+            }
+            else if(c[j-1]=='J')
+            {
+                mat2[i][j]=1;
+                J.x=i;
+                J.y=j;
+            }
+        }
+    }
+}
+
+bool OK(int i,int j)
+{
+    return i>=1 && i<=n && j>=1 && j<=m;
+}
+
+void Lee1()
+{
+    q1.push({R.x,R.y});
+    mat1[R.x][R.y]=1;
+    while(!q1.empty())
+    {
+        int i=q1.front().first;
+        int j=q1.front().second;
+
+        q1.pop();
+        for(int dir=0;dir<8;dir++)
+        {
+            int ii=i+dx[dir];
+            int jj=j+dy[dir];
+            if(OK(ii,jj) && mat1[ii][jj]==0)
+            {
+                mat1[ii][jj]=mat1[i][j]+1;
+                q1.push({ii,jj});
+            }
+        }
+    }
+}
+
+void Lee2()
+{
+    q2.push({J.x,J.y});
+    mat2[J.x][J.y]=1;
+    while(!q2.empty())
+    {
+        int i=q2.front().first;
+        int j=q2.front().second;
+
+        q2.pop();
+        for(int dir=0;dir<8;dir++)
+        {
+            int ii=i+dx[dir];
+            int jj=j+dy[dir];
+            if(OK(ii,jj) && mat2[ii][jj]==0)
+            {
+                mat2[ii][jj]=mat2[i][j]+1;
+                q2.push({ii,jj});
+            }
+        }
+    }
+}
+
+int main()
+{
+    poz stop;
+    int min1=INT_MAX-1;
+    citire();
+    Lee1();
+    Lee2();
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(mat1[i][j]==mat2[i][j] && mat1[i][j]>0 && mat1[i][j]<min1)
+            {
+                min1=mat1[i][j];
+                stop.x=i;
+                stop.y=j;
+            }
+        }
+    }
+    fout<<min1<<" "<<stop.x<<" "<<stop.y;
+    return 0;
+}
