@@ -1,0 +1,15 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    int a,b,P=0,A,D;
+    cin>>a>>b;
+    P=2*(a+b);
+    A=a*b;
+    D=sqrt(a*a+b*b);
+    D*=D;
+    cout<<P<<" "<<A<<" "<<D;
+    return 0;
+}
