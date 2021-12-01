@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define maxn 30880
+using namespace std;
+
+int n;
+vector <int> lista[maxn];
+unordered_map<int,int> grad;
+
+void citire()
+{
+    cin>>n;
+    int x,y;
+    for(int i=1;i<=n;i++)
+    {
+        cin>>x>>y;
+        lista[x].push_back(y);
+        lista[y].push_back(x);
+    }
+    for(int i=1;i<=n;i++){
+         grad[i]=lista[i].size();
+    }
+}
+
+void solve()
+{
+    int nr=0;
+    queue<int> q;
+    for(int i=1;i<=n;i++)
+    {
+        if(lista[i].size()==1)
+        {
+            q.push(i);
+        }
+    }
+    while(!q.empty())
+    {
+        int aux=q.front();
+        q.pop();
+        for(auto x:lista[aux])
+        {
+            grad[x]--;
+            if(grad[x]==1)
+                q.push(x);
+        }
+    }
+    for(int i=1;i<=n;i++)
+        if(grad[i]>=2)
+            nr++;
+    cout<<nr;
+}
+
+int main()
+{
+    citire();
+    solve();
+    return 0;
+}
