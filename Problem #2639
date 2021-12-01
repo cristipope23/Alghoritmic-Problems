@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+ifstream fin("radiera.in");
+ofstream fout("radiera.out");
+
+
+int n,v[1050],d[1050];
+
+void citire()
+{
+    fin>>n;
+    for(int i=1;i<=n;i++)
+        fin>>v[i];
+    for(int i=0;i<=n+1;i++)
+        d[i]=1;
+}
+
+void dinamica()
+{
+    for(int i=2;i<=n;i++)
+        for(int j=1;j<i;j++)
+            if(v[j]<=v[i] && d[j]+1>d[i])
+                d[i]=d[j]+1;
+    for(int i=1;i<=n;i++)
+        cout<<d[i]<<" ";
+    int lung_max=0;
+    for(int i=1;i<=n;i++)
+        lung_max=max(lung_max,d[i]);
+    fout<<n-lung_max;
+}
+
+int main()
+{
+    citire();
+    dinamica();
+    return 0;
+}
