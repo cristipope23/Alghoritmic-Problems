@@ -1,0 +1,45 @@
+#include <iostream>
+
+using namespace std;
+
+int n,v[20];
+
+void afisare()
+{
+    for(int i=1;i<=n;i++)
+        cout<<v[i];
+    cout<<"\n";
+}
+
+bool valid(int k)
+{
+    if(v[1]!=0)
+        return false;
+    for(int i=1;i<k;i++)
+        if(abs(v[i]-v[i+1])!=1)
+            return false;
+    return true;
+}
+
+void back(int k)
+{
+    if(k>n)
+    {
+        if(v[1]==0 && v[n]==0)
+            afisare();
+        return;
+    }
+    for(int i=0;i<=n;i++)
+    {
+        v[k]=i;
+        if(valid(k))
+            back(k+1);
+    }
+}
+
+int main()
+{
+    cin>>n;
+    back(1);
+    return 0;
+}
