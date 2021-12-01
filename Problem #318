@@ -1,0 +1,67 @@
+#include <iostream>
+#include<fstream>
+#include<algorithm>
+using namespace std;
+
+ifstream fin("cerc.in");
+ofstream fout("cerc.out");
+
+int n,v[11],x[11],max1=-1;
+
+void citire()
+{
+    fin>>n;
+    for(int i=1;i<=n;i++)
+        fin>>x[i];
+}
+
+bool valid(int k)
+{
+    for(int i=1;i<k;i++)
+        if(x[i]==x[k])
+            return false;
+    return true;
+}
+
+void back(int k)
+{
+    if(k==n+1)
+    {
+        int s=0;
+        for(int i=1;i<n;i++)
+            s=s+x[i]*x[i+1];
+        s=s+x[n]*x[1];
+        if(s>max1)
+        {
+            max1=s;
+            for(int i=1;i<=n;i++)
+                v[i]=x[i];
+        }
+        else if(s==max1)
+        {
+            if(lexicographical_compare(x,x+n,v,v+n))
+            {
+                for(int i=1;i<=n;i++)
+                    v[i]=x[i];
+            }
+        }
+        return;
+    }
+    for(int i=k;i<=n;i++)
+    {
+        swap(x[k],x[i]);
+        if(valid(k))
+            back(k+1);
+        swap(x[k],x[i]);
+    }
+}
+
+int main()
+{
+    citire();
+    back(1);
+    //cout<<max1<<"\n";
+    for(int i=1;i<=n;i++)
+        fout<<v[i]<<" ";
+    return 0;
+}
