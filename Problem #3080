@@ -1,0 +1,67 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+ifstream fin("test.in");
+
+int main()
+{
+    char s[115],cifra[115],litera[115];
+    bool doar_zero=true,doar_litere=true,nr_natural=true;
+    int k=0,l=0;
+    fin.get(s,115);
+    for(int i=0;i<strlen(s);i++)
+    {
+        if(isdigit(s[i]) && s[i]!='0')
+        {
+            doar_litere=false;
+            doar_zero=false;
+            cifra[++k]=s[i];
+        }
+        else
+            if(s[i]!=' ')
+            {
+                litera[++l]=s[i];
+                if(isalpha(s[i]))
+                    nr_natural=false;
+                else
+                    if(s[i]=='0')
+                        doar_litere=false;
+            }
+    }
+    if(doar_litere==true)
+    {
+        cout<<"NaN";
+        return 0;
+    }
+    else if(nr_natural==true && isdigit(s[0]) && s[0]!='0')
+    {
+        cout<<"CORECT";
+        return 0;
+    }
+    if(doar_zero==false)
+        for(int i=1;i<=k;i++)
+            cout<<cifra[i];
+    else
+    {
+        int used[115]={false};
+        cout<<0<<"\n";
+        for(int i=l;i>=1;i--)
+        {
+            if(litera[i]=='0')
+            {
+                used[i]=true;
+                break;
+            }
+        }
+        for(int i=1;i<=l;i++)
+            if(used[i]==false)
+                cout<<litera[i]<<" ";
+        return 0;
+
+    }
+    cout<<"\n";
+    for(int i=1;i<=l;i++)
+        cout<<litera[i]<<" ";
+    return 0;
+}
