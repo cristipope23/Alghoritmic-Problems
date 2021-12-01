@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+#define maxn 1005
+using namespace std;
+
+ifstream fin("lungimesubsircomunmaximal.in");
+ofstream fout("lungimesubsircomunmaximal.out");
+
+char s1[1005],s2[1005];
+int n,m,mat[maxn][maxn],d[maxn][maxn];
+
+
+void citire()
+{
+    fin.getline(s1,1005);
+    n=strlen(s1);
+    fin.getline(s2,1005);
+    m=strlen(s2);
+
+    for(int i=0;i<=n;i++)
+        mat[i][0]=1;
+    for(int j=0;j<=m;j++)
+        mat[0][j]=1;
+
+
+    /*for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+            cout<<mat[i][j]<<" ";
+        cout<<"\n";
+    }*/
+
+}
+
+void dinamica()
+{
+    int lung_max=0;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=m;j++)
+        {
+            if(s1[i-1]==s2[j-1])
+            {
+                d[i][j]=d[i-1][j-1]+1;
+                if(d[i][j]>lung_max)
+                    lung_max=d[i][j];
+            }
+            else
+                d[i][j]=max(d[i-1][j],d[i][j-1]);
+        }
+    }
+    fout<<lung_max;
+}
+
+int main()
+{
+
+    citire();
+    dinamica();
+    return 0;
+}
