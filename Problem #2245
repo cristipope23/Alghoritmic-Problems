@@ -1,0 +1,75 @@
+#include <iostream>
+#include<fstream>
+using namespace std;
+
+ifstream fin("plata.in");
+
+int n,v[10],c[10],x[10],S,s=0,suma,ap[1000],nr=0;
+
+void Read()
+{
+    fin>>n>>S;
+    for(int i=1;i<=n;i++)
+        fin>>v[i];
+    for(int i=1;i<=n;i++)
+        fin>>c[v[i]];
+}
+
+void afisare(int k)
+{
+    for(int i=1;i<=k;i++)
+        cout<<x[i]<<" ";
+    cout<<"\n";
+}
+
+bool valid(int k)
+{
+    s=0;
+    if(k>=2 && x[k]<x[k-1])
+        return false;
+    for(int i=1;i<=k;i++)
+        s+=x[i];
+    if(s<=suma)
+        return true;
+    return false;
+}
+
+void back(int k)
+{
+    if(s==suma)
+    {
+        bool ok=true;
+        int ap[1000]={0};
+        for(int i=1;i<k;i++)
+        {
+            ap[x[i]]++;
+            if(ap[x[i]]>c[x[i]])
+            {
+                ok=false;
+                break;
+            }
+        }
+        if(ok==true) //&& nr==0)
+        {
+            nr++;
+            for(int i=1;i<=n;i++)
+                cout<<ap[v[i]]<<" ";
+            cout<<"\n";
+        }
+        return;
+    }
+    for(int i=1;i<=n;i++)
+    {
+        x[k]=v[i];
+        if(valid(k))
+            back(k+1);
+    }
+}
+
+int main()
+{
+    Read();
+    suma=S;
+    back(1);
+    return 0;
+}
