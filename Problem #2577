@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+using namespace std;
+int T;
+int main()
+{
+    cin>>T;
+    unsigned long long n,poz;
+    for(int i=1;i<=T;i++)
+    {
+        cin>>n>>poz;
+        cout<<((n >> poz) & 1);
+    }
+    return 0;
+}
