@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ifstream fin("s_p_c.in");
+ofstream fout("s_p_c.out");
+
+ int i,j,q,n,m,l,k1,k2,k3;
+    char s[15000],c[50],*p;
+    string v1[110],v2[110],v3[110];
+
+int main()
+{
+
+    fin.getline(s,15000);
+    p=strtok(s," ");
+    while(p)
+    {
+        strcpy(c,p);
+        l=strlen(c);
+        if(c[l-1]=='S')
+        {
+            c[l-2]=NULL;
+            v1[++k1]=c;
+        }
+        if(c[l-1]=='P')
+        {
+            c[l-2]=NULL;
+            v2[++k2]=c;
+        }
+        if(c[l-1]=='C')
+        {
+            c[l-2]=NULL;
+            v3[++k3]=c;
+        }
+        p=strtok(NULL," ");
+    }
+    sort(v1+1,v1+k1+1);
+    sort(v2+1,v2+k2+1);
+    sort(v3+1,v3+k3+1);
+    for(int i=1;i<=k1;i++)
+        for(int j=1;j<=k2;j++)
+            for(int q=1;q<=k3;q++)
+                fout<<v1[i]<<" "<<v2[j]<<" "<<v3[q]<<"\n";
+    return 0;
+}
