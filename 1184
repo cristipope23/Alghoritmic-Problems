@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+#define maxn 1005
+#define INF -0x3f3f3f3f
+using namespace std;
+ifstream fin("epuras.in"); ofstream fout("epuras.out");
+int n,mat[maxn][maxn],dp[maxn][maxn]; //dp - gradul maxim de puritate in coord (i,j)
+void dinamica(int x,int y)
+{
+    for(int i=x;i<=n;i++)
+        for(int j=y;j<=n;j++)
+        {
+            if(i==x && j==y)
+                continue;
+            dp[i][j]=max(dp[i][j],dp[x][y]+mat[i][j]);
+        }
+}
+int main()
+{
+    fin>>n;
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++){
+            fin>>mat[i][j];
+            dp[i][j]=INF;
+        }
+    dp[1][1]=mat[1][1];
+    for(int i=1;i<=n;i++)
+        for(int j=1;j<=n;j++)
+            dinamica(i,j);
+    fout<<dp[n][n];
+    return 0;
+}
