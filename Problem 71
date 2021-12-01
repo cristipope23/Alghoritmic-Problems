@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int T,n,m,A[1002],B[1002];
+int main()
+{
+    cin>>T;
+    for(int i=1;i<=T;i++)
+    {
+        cin>>n;
+        for(int j=1;j<=n;j++) cin>>A[j];
+        cin>>m;
+        for(int j=1;j<=m;j++) cin>>B[j];
+        int k=1;
+
+        for(int j=1;j<=n;j++)
+        {
+            B[k]-=A[j];
+            if(B[k]==0)
+                k++;
+        }
+        bool ok=true;
+        for(int j=1;j<=m;j++)
+            if(B[j]!=0){
+                ok=false;break;
+            }
+        if(ok) cout<<"1\n";
+        else cout<<"0\n";
+    }
+    return 0;
+}
