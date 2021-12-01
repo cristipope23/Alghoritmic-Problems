@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    char s[115];
+    string sir[115];
+    int k=0;
+    bool gasit=false;
+    cin.get(s,115);
+    char *p;
+    p=strtok(s," ");
+    while(p!=NULL)
+    {
+        if(strlen(p)%2==0)
+        {
+            //cout<<"# ";
+            sir[++k]="#";
+            gasit=true;
+        }
+        else
+        {
+            sir[++k]=p;
+            //cout<<p<<" ";
+        }
+        p=strtok(NULL," ");
+    }
+    if(gasit==false)
+        cout<<"nu exista";
+    else
+        for(int i=1;i<=k;i++)
+            cout<<sir[i]<<" ";
+    return 0;
+}
