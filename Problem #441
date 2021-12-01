@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+ifstream fin("componenteconexe1.in");
+ofstream fout("componenteconexe1.out");
+int n,a[105][105],nc,viz[105];
+void citire()
+{
+    fin>>n;
+    int x,y;
+    while(fin>>x>>y)
+    {
+        a[x][y]=a[y][x]=1;
+    }
+}
+void bf(int nod)
+{
+    queue<int> q;
+    int vf;
+    q.push(nod);
+    viz[nod]=nc;
+    while(!q.empty())
+    {
+        vf=q.front();
+        q.pop();
+        for(int i=1;i<=n;i++)
+            if(a[vf][i]==1 && viz[i]==0)
+            {
+                q.push(i);
+                viz[i]=nc;
+            }
+    }
+}
+void cc()
+{
+    for(int i=1;i<=n;i++)
+        if(viz[i]==0)
+        {
+            nc++;
+            bf(i);
+        }
+}
+void afis()
+{
+    int j;
+    fout<<nc-1<<"\n";
+    for(int i=2;i<=nc;i++)
+    {
+        for(j=1;j<=n;j++)
+        {
+            if(viz[j]==i)
+            {
+                break;
+            }
+        }
+        fout<<1<<" "<<j<<"\n";
+    }
+}
+int main()
+{
+    citire();
+    cc();
+    afis();
+    return 0;
+}
