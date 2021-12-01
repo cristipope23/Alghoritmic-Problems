@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+#define MAXN 1050
+using namespace std;
+
+ifstream fin("sclm.in");
+ofstream fout("sclm.out");
+
+int n;
+int sir[MAXN];
+int dp[MAXN];
+int maxv;
+int pos[MAXN];
+int pmax=-1;
+vector<int> sol;
+
+int main()
+{
+    fin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        fin>>sir[i];
+        dp[i]=1;
+    }
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<i;j++)
+        {
+            if(sir[j]<=sir[i] && dp[j]+1>dp[i])
+            {
+                dp[i]=dp[j]+1;
+                pos[i]=j;
+                if(dp[i]>maxv){
+                    maxv=dp[i];
+                    pmax=i;
+                }
+            }
+        }
+    }
+    fout<<maxv<<"\n";
+    while(pmax!=0)
+    {
+        sol.push_back(pmax);
+        pmax=pos[pmax];
+    }
+    for(int i=sol.size()-1;i>=0;i--)
+        fout<<sol[i]<<" ";
+    fout<<maxv;
+    return 0;
+}
