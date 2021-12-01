@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ifstream fin("a1z26.in");
+ofstream fout("a1z26.out");
+
+int main()
+{
+    int cerinta;
+    char s;
+    fin>>cerinta;
+    if(cerinta==1)
+    {
+        while(fin>>s)
+            fout<<(int)s-'A'+1<<" ";
+        return 0;
+    }
+    int n,x;
+    fin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        fin>>x;
+        fout<<(char)(x+'A'-1);
+    }
+    return 0;
+}
