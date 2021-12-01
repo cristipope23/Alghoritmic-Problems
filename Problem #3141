@@ -1,0 +1,17 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+ifstream fin("atbash.in");
+ofstream fout("atbash.out");
+
+
+
+int main()
+{
+    char s;
+    while(fin>>s)
+    {
+        fout<<(char)('Z'-((int)s-'A'));
+    }
+    return 0;
+}
